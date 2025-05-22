@@ -33,4 +33,9 @@ Download repository
 
 LIST API REST
 
-- 
+- GET	/api/my-clients	List all clients
+- POST	/api/my-clients	Create new client
+- GET	/api/my-clients/{slug}	Get client by slug
+- PUT	/api/my-clients/{id}	Update client
+- DELETE	/api/my-clients/{id}	Soft delete client
+- POST	/api/my-clients/{id}/upload-logo	Upload client logo to S3
