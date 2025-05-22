@@ -54,18 +54,20 @@ class MyClientController extends Controller
      */
     public function show($id_slug)
     {
-        // Check Redis first
         if ($cached = Redis::get("client:{$id_slug}")) {
-            return response()->json(json_decode($cached));
+            return response()->json(json_decode($cached), 200);
         }
 
         $client = MyClient::where('slug', $id_slug)->firstOrFail();
-        return response()->json(null, 201);
+
+        Redis::set("client:{$id_slug}", $client->toJson());
+
+        return response()->json($client, 200);
     }
 
     public function uploadLogo(Request $request, $id)
     {
-        $request->validate(['logo' => 'required|image|max:2048']);
+        $request->validate(['logo' => 'required|image']);
         
         $client = MyClient::findOrFail($id);
         $path = $request->file('logo')->store('client-logos', 's3');
@@ -75,8 +77,8 @@ class MyClientController extends Controller
         }
         
         $client->update(['client_logo' => Storage::disk('s3')->url($path)]);
-        
-        return response()->json(['url' => $client->client_logo]);
+        // Error, saya tidak memiliki akun aws, jadi tidak dapat storage logo
+        return response()->json($client, 201);
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('my_clients', function (Blueprint $table) {
             $table->id();
             $table->char('name', 250);
-            $table->char('slug', 100);
+            $table->char('slug', 100)->unique();
             $table->string('is_project', 30)->default('0');
             $table->char('self_capture', 1)->default('1');
             $table->char('client_prefix', 4);
