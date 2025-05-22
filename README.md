@@ -15,7 +15,7 @@ Download repository
 
 `composer install`
 
-2. Rename .env.example ubah database config ke postgres lalu rename menjadi .env
+2. Rename .env.example menjadi .env
 
 3. Generate APP_KEY untuk aplikasi baru Laravel. ini akan setup env file juga nantinya.
 
